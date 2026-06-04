@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>トモダチ受付フォーム</title>
+
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+<style>
+body{
+  font-family:sans-serif;
+  max-width:500px;
+  margin:auto;
+  padding:20px;
+}
+
+h1{
+  text-align:center;
+  font-size:32px;
+  margin:24px 0;
+}
+
+.mode-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:20px 0;
+}
+
+.mode-buttons button{
+  width:100%;
+  padding:14px 8px;
+  margin-top:0;
+  font-size:18px;
+  background:#eee;
+  color:#333;
+  border:none;
+  border-radius:8px;
+}
+
+.mode-buttons button.active{
+  background:#06C755;
+  color:white;
+}
+
+.form-section{
+  display:none;
+}
+
+.form-section.active{
+  display:block;
+}
+
+label{
+  display:block;
+  margin-top:15px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  box-sizing:border-box;
+  font-size:16px;
+}
+
+.required-mark{
+  color:#d60000;
+  font-size:13px;
+  margin-left:4px;
+}
+
+.field-help{
+  font-size:13px;
+  color:#666;
+  margin-top:6px;
+  line-height:1.5;
+}
+
+.field-block{
+  margin-top:12px;
+}
+
+.datetime-row{
+  display:block;
+}
+
+.datetime-row input,
+.datetime-row select{
+  margin-top:6px;
+}
+
+textarea{
+  min-height:70px;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  margin-top:20px;
+  font-size:18px;
+  background:#06C755;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+button:disabled{
+  background:#999;
+  cursor:not-allowed;
+}
+
+.sub-button{
+  background:#ff6b6b;
+}
+
+.note{
+  font-size:14px;
+  color:#666;
+  margin-top:12px;
+  line-height:1.6;
+}
+
+#result{
+  margin-top:20px;
+  padding:15px;
+  border-radius:8px;
+  display:none;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.success{
+  background:#e8fff0;
+  color:#0a7a2f;
+}
+
+.error{
+  background:#ffecec;
+  color:#b00020;
+}
+</style>
+</head>
+
+<body>
+
+<h1>トモダチ受付</h1>
+
+<div class="mode-buttons">
+  <button id="reserveModeBtn" class="active" type="button" onclick="switchMode('reserve')">予約する</button>
+  <button id="confirmModeBtn" type="button" onclick="switchMode('confirm')">予約確認</button>
+  <button id="changeModeBtn" type="button" onclick="switchMode('change')">変更する</button>
+  <button id="cancelModeBtn" type="button" onclick="switchMode('cancel')">キャンセル</button>
+</div>
+
+<section id="reserveForm" class="form-section active">
+  <label>予約日時 <span class="required-mark">※必須</span></label>
+  <p class="field-help">日付と時間を選択してください。15分刻みで選択できます。</p>
+  <div class="datetime-row">
+    <div class="field-block">
+      <label for="dateOnly">日付 <span class="required-mark">※必須</span></label>
+      <input id="dateOnly" type="date" aria-label="日付を選択してください" required>
+    </div>
+    <div class="field-block">
+      <label for="timeOnly">時間 <span class="required-mark">※必須</span></label>
+      <select id="timeOnly" required>
+        <option value="">時間を選択してください</option>
+      </select>
+    </div>
+  </div>
+  <input id="datetime" type="hidden" required>
+  <p class="note">予約可能時間：営業時間内、最終受付は閉店1時間前まで。</p>
+
+  <label>担当者 <span class="required-mark">※必須</span></label>
+  <p class="field-help">ご希望の担当者を選択してください。</p>
+  <select id="staff" required>
+    <option value="">担当者を選択してください</option>
+    <option value="田中">田中</option>
+    <option value="今野">今野</option>
+    <option value="吉田">吉田</option>
+    <option value="後藤">後藤</option>
+    <option value="井上">井上</option>
+    <option value="鈴木">鈴木</option>
+    <option value="中嶋">中嶋</option>
+    <option value="秋山">秋山</option>
+    <option value="下北">下北</option>
+    <option value="手島">手島</option>
+    <option value="誰でもいい">誰でもいい</option>
+  </select>
+
+  <label>人数 <span class="required-mark">※必須</span></label>
+  <select id="people" required>
+    <option value="">人数を選択してください</option>
+    <option value="1">1名</option>
+    <option value="2">2名</option>
+    <option value="3">3名</option>
+    <option value="4">4名</option>
+  </select>
+
+  <label>電話番号 <span class="required-mark">※必須</span></label>
+  <input id="phone" type="tel" inputmode="numeric" placeholder="例：09012345678" required>
+  <p class="field-help">予約確認のために使用します。ハイフンなしで入力してください。</p>
+
+  <label>備考</label>
+  <textarea id="memo" placeholder="ご要望があればご記入ください"></textarea>
+
+  <button id="submitBtn" type="button" onclick="sendReserve()">予約する</button>
+</section>
+
+<section id="changeForm" class="form-section">
+  <label>変更する予約 <span class="required-mark">※必須</span></label>
+  <select id="changeReservationSelect" required>
+    <option value="">予約を選択してください</option>
+  </select>
+
+  <label>新しい予約日時 <span class="required-mark">※必須</span></label>
+  <p class="field-help">変更後の日付と時間を選択してください。</p>
+  <div class="datetime-row">
+    <div class="field-block">
+      <label for="newDateOnly">日付 <span class="required-mark">※必須</span></label>
+      <input id="newDateOnly" type="date" aria-label="日付を選択してください" required>
+    </div>
+    <div class="field-block">
+      <label for="newTimeOnly">時間 <span class="required-mark">※必須</span></label>
+      <select id="newTimeOnly" required>
+        <option value="">時間を選択してください</option>
+      </select>
+    </div>
+  </div>
+  <input id="newDatetime" type="hidden">
+  <p class="note">予約可能時間：営業時間内、最終受付は閉店1時間前まで。15分刻みで選択できます。</p>
+
+  <label>新しい人数 <span class="required-mark">※必須</span></label>
+  <select id="newPeople">
+    <option value="">人数を選択してください</option>
+    <option value="1">1名</option>
+    <option value="2">2名</option>
+    <option value="3">3名</option>
+    <option value="4">4名</option>
+  </select>
+
+  <button id="changeSubmitBtn" class="sub-button" type="button" onclick="sendChange()">変更する</button>
+</section>
+
+
+<section id="confirmForm" class="form-section">
+  <p class="note">現在の予約を確認できます。</p>
+  <button id="confirmBtn" type="button" onclick="refreshAndShowReservations()">予約を確認する</button>
+  <div id="reservationList" class="note"></div>
+</section>
+
+<section id="cancelForm" class="form-section">
+  <label>キャンセルする予約 <span class="required-mark">※必須</span></label>
+  <select id="cancelReservationSelect" required>
+    <option value="">予約を選択してください</option>
+  </select>
+
+  <p class="note">
+    予約完了時に取得した予約ID（Calendar Event ID）でキャンセルします。
+  </p>
+
+  <button id="cancelBtn" class="sub-button" type="button" onclick="sendCancel()">キャンセルする</button>
+</section>
+
+<div id="result"></div>
+
+<script>
+const WEBHOOK_URL = "https://hook.us2.make.com/sr4f38llkl01wbmstxi3q734upd2ar2j";
+const CANCEL_ENABLED = true;
+
+// 予約受付ルール
+// 営業時間を変更する場合は、この2行だけ変更する。
+const BUSINESS_START_TIME = "10:00";
+const BUSINESS_END_TIME = "22:00";
+const LAST_RESERVATION_BEFORE_CLOSE_MINUTES = 60;
+const RESERVATION_INTERVAL_MINUTES = 15;
+
+
+
+function getCreatedAtJST(){
+  const now=new Date();
+  const y=now.getFullYear();
+  const m=String(now.getMonth()+1).padStart(2,'0');
+  const d=String(now.getDate()).padStart(2,'0');
+  const h=String(now.getHours()).padStart(2,'0');
+  const mi=String(now.getMinutes()).padStart(2,'0');
+  const s=String(now.getSeconds()).padStart(2,'0');
+  return `${y}-${m}-${d} ${h}:${mi}:${s}`;
+}
+
+function getTodayDateText(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function parseLocalDatetime(datetimeValue){
+  if(!datetimeValue || !datetimeValue.includes("T")){
+    return null;
+  }
+
+  const [datePart, timePart] = datetimeValue.split("T");
+  const datePieces = datePart.split("-").map(Number);
+  const timePieces = timePart.split(":").map(Number);
+
+  if(datePieces.length < 3 || timePieces.length < 2){
+    return null;
+  }
+
+  const [year, month, day] = datePieces;
+  const [hour, minute] = timePieces;
+
+  if([year, month, day, hour, minute].some(value => Number.isNaN(value))){
+    return null;
+  }
+
+  return new Date(year, month - 1, day, hour, minute, 0, 0);
+}
+
+function minutesToTimeText(totalMinutes){
+  const hour = String(Math.floor(totalMinutes / 60)).padStart(2, "0");
+  const minute = String(totalMinutes % 60).padStart(2, "0");
+  return `${hour}:${minute}`;
+}
+
+function populateTimeSelect(selectId){
+  const select = document.getElementById(selectId);
+  if(!select){ return; }
+
+  const startMinutes = timeToMinutes(BUSINESS_START_TIME);
+  const lastMinutes = timeToMinutes(BUSINESS_END_TIME) - LAST_RESERVATION_BEFORE_CLOSE_MINUTES;
+
+  select.innerHTML = '<option value="">時間を選択してください</option>';
+
+  for(let minutes = startMinutes; minutes <= lastMinutes; minutes += RESERVATION_INTERVAL_MINUTES){
+    const value = minutesToTimeText(minutes);
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  }
+}
+
+function syncDatetimeFields(type){
+  const dateId = type === "change" ? "newDateOnly" : "dateOnly";
+  const timeId = type === "change" ? "newTimeOnly" : "timeOnly";
+  const hiddenId = type === "change" ? "newDatetime" : "datetime";
+
+  const dateValue = document.getElementById(dateId).value;
+  const timeValue = document.getElementById(timeId).value;
+  const hidden = document.getElementById(hiddenId);
+
+  hidden.value = (dateValue && timeValue) ? `${dateValue}T${timeValue}` : "";
+}
+
+function clearDatetimeFields(type){
+  const dateId = type === "change" ? "newDateOnly" : "dateOnly";
+  const timeId = type === "change" ? "newTimeOnly" : "timeOnly";
+  const hiddenId = type === "change" ? "newDatetime" : "datetime";
+
+  document.getElementById(dateId).value = "";
+  document.getElementById(timeId).value = "";
+  document.getElementById(hiddenId).value = "";
+}
+
+function setupDatetimeControls(){
+  populateTimeSelect("timeOnly");
+  populateTimeSelect("newTimeOnly");
+
+  const today = getTodayDateText();
+  ["dateOnly", "newDateOnly"].forEach(id => {
+    const element = document.getElementById(id);
+    if(element){ element.min = today; }
+  });
+
+  ["dateOnly", "timeOnly"].forEach(id => {
+    const element = document.getElementById(id);
+    if(element){ element.addEventListener("change", () => syncDatetimeFields("reserve")); }
+  });
+
+  ["newDateOnly", "newTimeOnly"].forEach(id => {
+    const element = document.getElementById(id);
+    if(element){ element.addEventListener("change", () => syncDatetimeFields("change")); }
+  });
+}
+
+let lineUserId = "";
+let lineDisplayName = "";
+
+function normalizeReservationDatetime(value){
+  return value ? String(value).replace("T", " ") : "";
+}
+
+function getReservationField(item, index, columnLetter, fallbackKeys = []){
+  if(!item){ return ""; }
+
+  const keys = [
+    String(index),
+    index,
+    columnLetter,
+    String(columnLetter).toLowerCase(),
+    ...fallbackKeys
+  ];
+
+  for(const key of keys){
+    if(Object.prototype.hasOwnProperty.call(item, key) && item[key] !== undefined && item[key] !== null && String(item[key]).trim() !== ""){
+      return String(item[key]).trim();
+    }
+  }
+
+  if(Array.isArray(item.values) && item.values[index] !== undefined && item.values[index] !== null && String(item.values[index]).trim() !== ""){
+    return String(item.values[index]).trim();
+  }
+
+  return "";
+}
+
+function parseReservationDatetimeText(value){
+  if(!value){ return null; }
+
+  const normalized = String(value).trim().replace("T", " ");
+  const match = normalized.match(/^(\d{4})-(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})/);
+  if(!match){ return null; }
+
+  const [, year, month, day, hour, minute] = match.map(Number);
+  return new Date(year, month - 1, day, hour, minute, 0, 0);
+}
+
+function isFutureReservation(datetimeText){
+  const reservationDate = parseReservationDatetimeText(datetimeText);
+  if(!reservationDate){ return false; }
+
+  return reservationDate.getTime() >= new Date().getTime();
+}
+
+function timeToMinutes(timeText){
+  const parts = String(timeText).split(":").map(Number);
+  return (parts[0] * 60) + parts[1];
+}
+
+function getDatetimeMinutes(datetimeValue){
+  if(!datetimeValue || !datetimeValue.includes("T")){
+    return null;
+  }
+
+  const timePart = datetimeValue.split("T")[1] || "";
+  const parts = timePart.split(":").map(Number);
+
+  if(parts.length < 2 || Number.isNaN(parts[0]) || Number.isNaN(parts[1])){
+    return null;
+  }
+
+  return (parts[0] * 60) + parts[1];
+}
+
+function validateReservableDatetime(datetimeValue){
+  const selectedMinutes = getDatetimeMinutes(datetimeValue);
+
+  if(selectedMinutes === null){
+    return { valid: false, message: "予約日時を正しく入力してください。" };
+  }
+
+  const selectedDatetime = parseLocalDatetime(datetimeValue);
+  if(!selectedDatetime){
+    return { valid: false, message: "予約日時を正しく入力してください。" };
+  }
+
+  const now = new Date();
+  if(selectedDatetime.getTime() < now.getTime()){
+    return { valid: false, message: "過去の日時は予約できません。現在時刻以降の日時を選択してください。" };
+  }
+
+  const startMinutes = timeToMinutes(BUSINESS_START_TIME);
+  const lastMinutes = timeToMinutes(BUSINESS_END_TIME) - LAST_RESERVATION_BEFORE_CLOSE_MINUTES;
+
+  if(selectedMinutes < startMinutes || selectedMinutes > lastMinutes){
+    return {
+      valid: false,
+      message: `予約可能時間は${BUSINESS_START_TIME}〜${String(Math.floor(lastMinutes / 60)).padStart(2, "0")}:${String(lastMinutes % 60).padStart(2, "0")}です。`
+    };
+  }
+
+  if(selectedMinutes % RESERVATION_INTERVAL_MINUTES !== 0){
+    return {
+      valid: false,
+      message: `予約時間は${RESERVATION_INTERVAL_MINUTES}分刻みで選択してください。`
+    };
+  }
+
+  return { valid: true, message: "" };
+}
+
+async function fetchReservationsAndRefresh(){
+  try{
+    const response = await fetch(WEBHOOK_URL + "?action=getReservations");
+
+    if(!response.ok){
+      throw new Error("getReservations failed: " + response.status);
+    }
+
+    const data = await response.json();
+
+    const storedReservations = getStoredReservations();
+
+    const reservations = (data.reservations || []).map(item => {
+      const rawDatetime = normalizeReservationDatetime(getReservationField(item, 0, "A", ["datetime", "date", "予約日時"]));
+      const peopleFromSheet = getReservationField(item, 1, "B", ["people", "numberOfPeople", "人数"]);
+      const nameOrUserId = getReservationField(item, 2, "C", ["name", "lineDisplayName", "名前"]);
+      const eventId = getReservationField(item, 5, "F", ["eventId", "calendarEventId", "EventID"]);
+      const userId = getReservationField(item, 6, "G", ["lineUserId", "userId", "LINE UserID"]);
+      const storedMatch = storedReservations.find(stored => stored.eventId === eventId) || {};
+      const displayName = nameOrUserId === lineUserId ? lineDisplayName : nameOrUserId;
+
+      return {
+        eventId: eventId,
+        datetime: rawDatetime,
+        rawDatetime: rawDatetime,
+        people: peopleFromSheet || storedMatch.people || "",
+        name: displayName || storedMatch.name || storedMatch.lineDisplayName || "",
+        lineDisplayName: displayName || storedMatch.lineDisplayName || "",
+        lineUserId: userId || storedMatch.lineUserId || ""
+      };
+    }).filter(item => {
+      if(!item.eventId || !item.datetime){
+        return false;
+      }
+
+      if(!isFutureReservation(item.datetime)){
+        return false;
+      }
+
+      return (
+        item.lineUserId === lineUserId ||
+        item.name === lineDisplayName ||
+        item.lineDisplayName === lineDisplayName
+      );
+    });
+
+    saveStoredReservations(reservations);
+    renderReservationSelects();
+    renderReservationList();
+
+  }catch(error){
+    console.error("予約一覧取得エラー", error);
+    renderReservationSelects();
+  }
+}
+
+
+
+function applyInitialMode(){
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get("mode");
+  if(mode === "change" || mode === "cancel" || mode === "reserve" || mode === "confirm"){
+    switchMode(mode);
+  }
+}
+
+async function initLiff(){
+  try{
+    await liff.init({ liffId: "2010241485-MAmbKmB7" });
+
+    if(!liff.isLoggedIn()){
+      liff.login();
+      return;
+    }
+
+    const profile = await liff.getProfile();
+    lineUserId = profile.userId;
+    lineDisplayName = profile.displayName;
+
+    await fetchReservationsAndRefresh();
+
+  }catch(error){
+    console.error("LIFF初期化エラー", error);
+  }
+}
+
+function switchMode(mode){
+  const forms = {
+    reserve: document.getElementById("reserveForm"),
+    confirm: document.getElementById("confirmForm"),
+    change: document.getElementById("changeForm"),
+    cancel: document.getElementById("cancelForm")
+  };
+
+  const buttons = {
+    reserve: document.getElementById("reserveModeBtn"),
+    confirm: document.getElementById("confirmModeBtn"),
+    change: document.getElementById("changeModeBtn"),
+    cancel: document.getElementById("cancelModeBtn")
+  };
+
+  Object.keys(forms).forEach(key => {
+    if(forms[key]){ forms[key].classList.toggle("active", key === mode); }
+    if(buttons[key]){ buttons[key].classList.toggle("active", key === mode); }
+  });
+
+  if(mode === "confirm"){
+    renderReservationList();
+  }
+
+  document.getElementById("result").style.display = "none";
+  renderReservationSelects();
+}
+
+function showResult(type, message){
+  const result = document.getElementById("result");
+  result.className = type;
+  result.textContent = message;
+  result.style.display = "block";
+}
+
+
+function formatDatetimeForMake(value){
+  return value ? value.replace("T", " ") : "";
+}
+
+function getStoredReservations(){
+  try{
+    return JSON.parse(localStorage.getItem("tomodachiReservations") || "[]");
+  }catch(error){
+    return [];
+  }
+}
+
+function sortReservationsByDatetime(reservations){
+  return [...reservations].sort((a, b) => {
+    const dateA = parseReservationDatetimeText(a.datetime || a.rawDatetime || "");
+    const dateB = parseReservationDatetimeText(b.datetime || b.rawDatetime || "");
+
+    if(!dateA && !dateB){ return 0; }
+    if(!dateA){ return 1; }
+    if(!dateB){ return -1; }
+
+    return dateA.getTime() - dateB.getTime();
+  });
+}
+
+function saveStoredReservations(reservations){
+  localStorage.setItem("tomodachiReservations", JSON.stringify(sortReservationsByDatetime(reservations)));
+}
+
+function getEventIdFromResponse(responseData){
+  return responseData.eventId
+    || responseData.eventID
+    || responseData.calendarEventId
+    || responseData.calendarEventID
+    || responseData.event_id
+    || responseData["Calendar Event ID"]
+    || "";
+}
+
+function rememberReservation(reservation){
+  if(!reservation.eventId){
+    return;
+  }
+
+  const reservations = getStoredReservations();
+  const filtered = reservations.filter(item => item.eventId !== reservation.eventId);
+  filtered.unshift(reservation);
+  saveStoredReservations(filtered.slice(0, 20));
+  renderReservationSelects();
+  renderReservationList();
+}
+
+function removeStoredReservation(eventId){
+  const reservations = getStoredReservations().filter(item => item.eventId !== eventId);
+  saveStoredReservations(reservations);
+  renderReservationSelects();
+  renderReservationList();
+}
+
+function updateStoredReservation(eventId, data){
+  const reservations = getStoredReservations().map(item => {
+    if(item.eventId !== eventId){
+      return item;
+    }
+
+    return {
+      ...item,
+      datetime: data.datetime,
+      rawDatetime: data.rawDatetime,
+      people: data.people
+    };
+  });
+
+  saveStoredReservations(reservations);
+  renderReservationSelects();
+  renderReservationList();
+}
+
+function renderReservationSelects(){
+  const reservations = sortReservationsByDatetime(getStoredReservations());
+
+  const cancelSelect = document.getElementById("cancelReservationSelect");
+  const changeSelect = document.getElementById("changeReservationSelect");
+
+  [cancelSelect, changeSelect].forEach(select => {
+    if(!select){
+      return;
+    }
+
+    const oldValue = select.value;
+    select.innerHTML = '<option value="">予約を選択してください</option>';
+
+    reservations.forEach(item => {
+      const option = document.createElement("option");
+      option.value = item.eventId;
+      option.textContent = `${item.datetime || ""} / ${item.people || ""}名 / ${item.name || ""}`;
+      option.dataset.datetime = item.datetime || "";
+      option.dataset.people = item.people || "";
+      select.appendChild(option);
+    });
+
+    if(oldValue){
+      select.value = oldValue;
+    }
+  });
+}
+
+function renderReservationList(){
+  const list = document.getElementById("reservationList");
+  if(!list){ return; }
+
+  const reservations = sortReservationsByDatetime(getStoredReservations());
+  if(reservations.length === 0){
+    list.innerHTML = "現在確認できる予約はありません。";
+    return;
+  }
+
+  list.innerHTML = reservations.map(item => {
+    const datetime = item.datetime || "日時未取得";
+    const people = item.people ? `${item.people}名` : "人数未取得";
+    return `<div style="padding:12px 0;border-bottom:1px solid #eee;">
+      <strong>日時：</strong>${datetime}<br>
+      <strong>人数：</strong>${people}
+    </div>`;
+  }).join("");
+}
+
+async function refreshAndShowReservations(){
+  const button = document.getElementById("confirmBtn");
+  if(button){
+    button.disabled = true;
+    button.textContent = "確認中...";
+  }
+
+  await fetchReservationsAndRefresh();
+  renderReservationList();
+
+  if(button){
+    button.disabled = false;
+    button.textContent = "予約を確認する";
+  }
+}
+
+async function sendReserve(){
+  syncDatetimeFields("reserve");
+  const datetime = document.getElementById("datetime").value;
+  const staff = document.getElementById("staff").value;
+  const people = document.getElementById("people").value;
+  const phone = document.getElementById("phone").value.trim();
+  const memo = document.getElementById("memo").value;
+  const phoneRegex = /^(070|080|090)\d{8}$/;
+
+  if(datetime === ""){
+    alert("予約日時を入力してください");
+    return;
+  }
+
+  const datetimeValidation = validateReservableDatetime(datetime);
+  if(!datetimeValidation.valid){
+    alert(datetimeValidation.message);
+    return;
+  }
+
+  if(staff === ""){
+    alert("担当者を選択してください");
+    return;
+  }
+
+  if(people === ""){
+    alert("人数を入力してください");
+    return;
+  }
+
+  if(Number(people) < 1 || Number(people) > 30){
+    alert("人数は1〜30名で入力してください");
+    return;
+  }
+
+  if(phone === ""){
+    alert("電話番号を入力してください");
+    return;
+  }
+
+  if(!phoneRegex.test(phone)){
+    alert("電話番号はハイフンなしの11桁で入力してください。例：09012345678");
+    return;
+  }
+
+  const button = document.getElementById("submitBtn");
+  button.disabled = true;
+  button.textContent = "送信中...";
+  document.getElementById("result").style.display = "none";
+
+  const data = {
+    action: "reserve",
+    name: lineDisplayName,
+    datetime: formatDatetimeForMake(datetime),
+    staff: staff,
+    people: people,
+    phone: phone,
+    memo: memo,
+    lineUserId: lineUserId,
+    lineDisplayName: lineDisplayName,
+    createdAtJST: getCreatedAtJST()
+  };
+
+  try{
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+
+    const responseData = await response.json();
+
+    if(responseData.status === "success"){
+      showResult("success", responseData.message);
+
+      const eventId = getEventIdFromResponse(responseData);
+      rememberReservation({
+        eventId: eventId,
+        datetime: datetime.replace("T", " "),
+        rawDatetime: datetime,
+        people: people,
+        phone: phone,
+        memo: memo,
+        name: lineDisplayName,
+        lineUserId: lineUserId,
+        lineDisplayName: lineDisplayName
+      });
+
+      clearDatetimeFields("reserve");
+      document.getElementById("staff").value = "";
+      document.getElementById("people").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("memo").value = "";
+    }else{
+      showResult("error", responseData.message);
+    }
+
+  }catch(error){
+    console.error(error);
+    showResult("error", "送信に失敗しました。時間をおいて再度お試しください。");
+  }
+
+  button.disabled = false;
+  button.textContent = "予約する";
+}
+
+async function sendCancel(){
+  const select = document.getElementById("cancelReservationSelect");
+  const eventId = select.value;
+  const selectedOption = select.options[select.selectedIndex];
+  const datetime = selectedOption ? selectedOption.dataset.datetime : "";
+
+  if(eventId === ""){
+    alert("キャンセルする予約を選択してください");
+    return;
+  }
+
+  if(!CANCEL_ENABLED){
+    alert("キャンセル機能はMake側の設定後に有効化します");
+    return;
+  }
+
+  const button = document.getElementById("cancelBtn");
+  button.disabled = true;
+  button.textContent = "キャンセル処理中...";
+  document.getElementById("result").style.display = "none";
+
+  const data = {
+    action: "cancel",
+    cancelMethod: "eventId",
+    eventId: eventId,
+    datetime: formatDatetimeForMake(datetime),
+    lineUserId: lineUserId,
+    lineDisplayName: lineDisplayName,
+    createdAtJST: getCreatedAtJST()
+  };
+
+  try{
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+
+    if(!response.ok){
+      throw new Error("Webhook request failed: " + response.status);
+    }
+
+    const responseData = await response.json();
+
+    if(responseData.status === "success"){
+      showResult("success", responseData.message || "キャンセルを受け付けました。");
+      removeStoredReservation(eventId);
+    }else{
+      showResult("error", responseData.message || "キャンセルに失敗しました。");
+    }
+
+  }catch(error){
+    console.error(error);
+    showResult("error", "送信に失敗しました。時間をおいて再度お試しください。");
+  }
+
+  button.disabled = false;
+  button.textContent = "キャンセルする";
+}
+
+async function sendChange(){
+  syncDatetimeFields("change");
+  const select = document.getElementById("changeReservationSelect");
+  const eventId = select.value;
+  const newDatetime = document.getElementById("newDatetime").value;
+  const newPeople = document.getElementById("newPeople").value;
+
+  if(eventId === ""){
+    alert("変更する予約を選択してください。");
+    return;
+  }
+
+  if(newDatetime === ""){
+    alert("新しい予約日時を入力してください。");
+    return;
+  }
+
+  const newDatetimeValidation = validateReservableDatetime(newDatetime);
+  if(!newDatetimeValidation.valid){
+    alert(newDatetimeValidation.message);
+    return;
+  }
+
+  if(newPeople === ""){
+    alert("新しい人数を入力してください。");
+    return;
+  }
+
+  if(Number(newPeople) < 1 || Number(newPeople) > 30){
+    alert("人数は1〜30名で入力してください");
+    return;
+  }
+
+  const button = document.getElementById("changeSubmitBtn");
+  button.disabled = true;
+  button.textContent = "変更処理中...";
+  document.getElementById("result").style.display = "none";
+
+  const data = {
+    action: "change",
+    eventId: eventId,
+    newDatetime: formatDatetimeForMake(newDatetime),
+    newPeople: String(newPeople),
+    people: String(newPeople),
+    lineUserId: lineUserId,
+    lineDisplayName: lineDisplayName,
+    createdAtJST: getCreatedAtJST()
+  };
+
+  try{
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+
+    if(!response.ok){
+      throw new Error("Webhook request failed: " + response.status);
+    }
+
+    const responseData = await response.json();
+
+    if(responseData.status === "success"){
+      updateStoredReservation(eventId, {
+        datetime: formatDatetimeForMake(newDatetime),
+        rawDatetime: newDatetime,
+        people: String(newPeople)
+      });
+
+      showResult("success", responseData.message || "変更を受け付けました。");
+      clearDatetimeFields("change");
+      document.getElementById("newPeople").value = "";
+    }else{
+      showResult("error", responseData.message || "変更に失敗しました。");
+    }
+
+  }catch(error){
+    console.error(error);
+    showResult("error", "変更送信に失敗しました。");
+  }
+
+  button.disabled = false;
+  button.textContent = "変更する";
+}
+
+setupDatetimeControls();
+applyInitialMode();
+initLiff();
+</script>
+
+</body>
+</html>
