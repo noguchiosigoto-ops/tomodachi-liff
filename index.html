@@ -1,285 +1,1034 @@
+bash
+
+sed -n '1,333p' /home/claude/tomodachi/index.html
+出力
+
 <!DOCTYPE html>
-<!-- saved from url=(0529)https://access.line.me/oauth2/v2.1/login?returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fapp_id%3D2010241485-MAmbKmB7%26client_id%3D2010241485%26scope%3Dopenid%2520profile%26state%3DiJMhufRPtrsw%26response_type%3Dcode%26code_challenge_method%3DS256%26code_challenge%3DiLnhA5xFJcj4tYR-%2D-C5CZ_NvnL75BAv4N7W_PMOSDo%26liff_sdk_version%3D2.29.0%26type%3DL%26redirect_uri%3Dhttps%253A%252F%252Fnoguchiosigoto-ops.github.io%252Ftomodachi-liff%252F%26bot_prompt%3Dnormal&loginChannelId=2010241485&loginState=MiVKJbQPl42kzw5XlZUYZq#/ -->
-<html dir="ltr" lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <script async="" src="./index_files/torimochi.js.ダウンロード"></script><script type="module" crossorigin="" src="./index_files/polyfills-Dwbh5rNy.js.ダウンロード"></script>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>トモダチ受付フォーム</title>
 
-  
-  <meta name="robots" content="noindex">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>LINE Login</title>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
-  <meta property="og:title" content="LINEログイン">
-  <meta property="og:description" content="トモダチ LIFF にログインする">
-  <meta property="og:image" content="https://vos.line-scdn.net/login-web/img/favicon.ico">
-  <link rel="shortcut icon" type="image/x-icon" href="https://vos.line-scdn.net/login-web/img/favicon.ico">
-  <link rel="icon" type="image/x-icon" sizes="32x32" href="https://vos.line-scdn.net/login-web/img/favicon-32x32.png">
-  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://vos.line-scdn.net/login-web/img/favicon-16x16.png">
+<style>
+body{
+  font-family:sans-serif;
+  max-width:500px;
+  margin:auto;
+  padding:20px;
+}
 
-  <link rel="apple-touch-icon-precomposed" href="https://vos.line-scdn.net/login-web/img/apple-touch-icon-precomposed.png">
+h1{
+  text-align:center;
+  font-size:32px;
+  margin:24px 0;
+}
 
-<script>/* analytics */
-(function(g,d){
-  var v='release/stable';
-  g._trmq=[];g._trm=function(){g._trmq.push(arguments)};
-  g.onerror=function(m,f,l,c){g._trm('send','exception',m,f,l,c)};
-  var h=location.protocol==='https:'?'https://d.line-scdn.net':'http://d.line-cdn.net';
-  var s=d.createElement('script');s.async=1;
-  s.src=h+'/n/_4/torimochi.js/public/v1/'+v+'/min/torimochi.js';
-  var t=d.getElementsByTagName('script')[0];t.parentNode.insertBefore(s,t);
-})(window, document);
+.mode-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:20px 0;
+}
 
-_trm('performance', { rate: 0.05 });
-_trm('enable', { productKey: "line-web-login-real" });
-/* /analytics */</script>
+.mode-buttons button{
+  width:100%;
+  padding:14px 8px;
+  margin-top:0;
+  font-size:18px;
+  background:#eee;
+  color:#333;
+  border:none;
+  border-radius:8px;
+}
 
-<script type="text/javascript" charset="UTF-8" src="./index_files/messages"></script>
+.mode-buttons button.active{
+  background:#06C755;
+  color:white;
+}
 
-      <script type="module" crossorigin="" src="./index_files/index-D1e2gT_F.js.ダウンロード"></script>
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/modulepreload-polyfill-Dqv5PPZA.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/common-CdBVkcKK.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/Constant-DvWA3Li3.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/cPinCode-eQWWOmwo.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/createRouter-BEpdhBGQ.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/_commonjsHelpers-MdiGH4nz.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/OverlayMixin-CKRS4WCf.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/ldsg-popup-Znk6Z7CF.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/ldsm-text-button-DQZIxjkY.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/createLayoutWrapper-BHKDznPP.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/_getPrototype-ay7Xs25s.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/lFooter01-C7i6PN6r.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/axiosPlugin-BCa_SQwo.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/uaPlugin-CbHEYUcA.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/darkModePlugin-CVkCycRS.js">
-    <link rel="modulepreload" crossorigin="" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/typesafeUtsWithAnonymous-CdUTPezI.js">
-    <link rel="stylesheet" href="./index_files/common-Bhu3aKU0.css">
-    <link rel="stylesheet" href="./index_files/cPinCode-bxSDbwtQ.css">
-    <link rel="stylesheet" href="./index_files/ldsm-text-button-IMHceSTo.css">
-    <link rel="stylesheet" href="./index_files/ldsm-semantic-dark-mode-DyhY1IDA.css">
-    <link rel="stylesheet" href="./index_files/lFooter01-CewfWLDy.css">
-    <link rel="stylesheet" href="./index_files/index-CK3FwVO5.css">
-    <link rel="stylesheet" href="./index_files/ldsm-semantic-dark-mode-DyhY1IDA.css">
-    <link rel="stylesheet" href="./index_files/main-iNVhYMwh.css">
+.form-section{
+  display:none;
+}
 
-<script src="./index_files/uts.js.ダウンロード"></script><style data-global-overlays="">
-  .global-overlays {
-    position: fixed;
-    z-index: 200;
-  }
+.form-section.active{
+  display:block;
+}
 
-  .global-overlays__overlay {
-    pointer-events: auto;
-  }
+label{
+  display:block;
+  margin-top:15px;
+  font-weight:bold;
+  font-size:16px;
+}
 
-  .global-overlays__overlay-container {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  box-sizing:border-box;
+  font-size:16px;
+}
 
-  .global-overlays__overlay-container--top-left {
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
+.required-mark{
+  color:#d60000;
+  font-size:13px;
+  margin-left:4px;
+}
 
-  .global-overlays__overlay-container--top {
-    justify-content: center;
-    align-items: flex-start;
-  }
+.field-help{
+  font-size:13px;
+  color:#666;
+  margin-top:6px;
+  line-height:1.5;
+}
 
-  .global-overlays__overlay-container--top-right {
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
+.field-block{
+  margin-top:12px;
+}
 
-  .global-overlays__overlay-container--right {
-    justify-content: flex-end;
-    align-items: center;
-  }
+.datetime-row{
+  display:block;
+}
 
-  .global-overlays__overlay-container--bottom-left {
-    justify-content: flex-start;
-    align-items: flex-end;
-  }
+.datetime-row input,
+.datetime-row select{
+  margin-top:6px;
+}
 
-  .global-overlays__overlay-container--bottom {
-    justify-content: center;
-    align-items: flex-end;
-  }
+textarea{
+  min-height:70px;
+}
 
-  .global-overlays__overlay-container--bottom-right {
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-  .global-overlays__overlay-container--left {
-    justify-content: flex-start;
-    align-items: center;
-  }
+button{
+  width:100%;
+  padding:15px;
+  margin-top:20px;
+  font-size:18px;
+  background:#06C755;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
 
-  .global-overlays__overlay-container--center {
-    justify-content: center;
-    align-items: center;
-  }
+button:disabled{
+  background:#999;
+  cursor:not-allowed;
+}
 
-  .global-overlays__overlay--bottom-sheet {
-    width: 100%;
-  }
+.sub-button{
+  background:#ff6b6b;
+}
 
-  .global-overlays .global-overlays__backdrop {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background-color: #333333;
-    filter: opacity(30%);
-    display: none;
-  }
+.note{
+  font-size:14px;
+  color:#666;
+  margin-top:12px;
+  line-height:1.6;
+}
 
-  .global-overlays .global-overlays__backdrop--visible {
-    display: block;
-  }
+#result{
+  margin-top:20px;
+  padding:15px;
+  border-radius:8px;
+  display:none;
+  font-weight:bold;
+  font-size:16px;
+}
 
-  .global-overlays .global-overlays__backdrop--animation-in {
-    animation: global-overlays-backdrop-fade-in 300ms;
-  }
+.success{
+  background:#e8fff0;
+  color:#0a7a2f;
+}
 
-  .global-overlays .global-overlays__backdrop--animation-out {
-    animation: global-overlays-backdrop-fade-out 300ms;
-    opacity: 0;
-  }
+.error{
+  background:#ffecec;
+  color:#b00020;
+}
+</style>
+</head>
 
-  @keyframes global-overlays-backdrop-fade-in {
-    from {
-      opacity: 0;
-    }
-  }
+<body>
 
-  @keyframes global-overlays-backdrop-fade-out {
-    from {
-      opacity: 0.3;
-    }
-  }
+<h1>トモダチ受付</h1>
 
-  body > *[inert] {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  body.global-overlays-scroll-lock {
-    overflow: hidden;
-  }
-
-  body.global-overlays-scroll-lock-ios-fix {
-    position: fixed;
-    width: 100%;
-  }
-
-  html.global-overlays-scroll-lock-ios-fix {
-    height: 100vh;
-  }
-</style></head>
-
-<body ontouchstart="">
-<noscript>
-  <div class="LyWrap">
-    <!--CONTENTS-AREA-->
-    <div class="LyContents" role="main">
-      <div class="lyContentsInner">
-        <div class="MdBox01">
-          <section class="mdBox01Inner MdLYR03Error">
-            <div class="MdLogo01 mdLogo01P01">
-              <h1 class="mdLogo01Img">LINE</h1>
-            </div>
-            <h2 class="mdLYR03Title mdMN10Title">
-              <span class="mdLYR03Icon MdIco01Alert">alert</span>
-              <span>JavaScript エラー</span>
-            </h2>
-            <p class="mdLYR03Desc mdMN10Desc">
-              ブラウザでJavaScriptが無効になっています。<br />
-正しく利用するために、JavaScriptを有効に設定してください。            </p>
-          </section>
-        </div>
-      </div>
-    </div>
-  </div>
-</noscript>
-
-<div id="__layout">
-  <div class="LyBody" id="app" data-v-app=""><div data-v-ca9e6b00="" class="LyWrap"><div data-v-ca9e6b00="" class="LyContents" role="main"><div data-v-ca9e6b00="" class="lyContentsInner"><div data-v-d047f85b="" data-v-ca9e6b00="" class=""><!----></div><div data-v-d86301bb="" data-v-ca9e6b00="" class="MdBox01"><div data-v-d86301bb="" class="mdBox01Inner"><div data-v-d86301bb="" class="MdLogo01"><h1 data-v-d86301bb="" class="mdLogo01Img">LINE</h1></div><form data-v-d86301bb="" method="post" action="https://access.line.me/oauth2/v2.1/authenticate" novalidate=""><input data-v-d86301bb="" type="hidden" name="userId" value=""><input data-v-d86301bb="" type="hidden" name="encUserId" value=""><input data-v-d86301bb="" type="hidden" name="id" value=""><input data-v-d86301bb="" type="hidden" name="password" value=""><input data-v-d86301bb="" type="hidden" name="idProvider" value=""><input data-v-d86301bb="" type="hidden" name="sessionId" value=""><input data-v-d86301bb="" type="hidden" name="encKeyId" value=""><input type="hidden" name="loginChannelId" value="2010241485"><input type="hidden" name="returnUri" value="/oauth2/v2.1/authorize/consent?app_id=2010241485-MAmbKmB7&amp;client_id=2010241485&amp;scope=openid%20profile&amp;state=iJMhufRPtrsw&amp;response_type=code&amp;code_challenge_method=S256&amp;code_challenge=iLnhA5xFJcj4tYR---C5CZ_NvnL75BAv4N7W_PMOSDo&amp;liff_sdk_version=2.29.0&amp;type=L&amp;redirect_uri=https%3A%2F%2Fnoguchiosigoto-ops.github.io%2Ftomodachi-liff%2F&amp;bot_prompt=normal"><input type="hidden" name="displayType" value="b"><input type="hidden" name="captchaKey" value="CE8t3wQVoK9gylrBFLGPuZ9VKe75WEKijKRvT3BBk6K"><input type="hidden" name="__csrf" id="__csrf" value="3z9qGW1h13asPVHgkRkIAj"><input type="hidden" name="lang" value="ja"><fieldset data-v-d86301bb="" class="MdFormGroup01"><legend data-v-d86301bb="">Login</legend><div data-v-f5e8c20f="" data-v-d86301bb="" class="MdInputTxt01" modelmodifiers="[object Object]"><label data-v-f5e8c20f="" class="mdInputTxt01Label">メールアドレス</label><input data-v-f5e8c20f="" type="text" name="tid" placeholder="メールアドレス" autocapitalize="off" autocorrect="off" spellcheck="false" value=""></div><div data-v-e2e9ced4="" data-v-d86301bb="" class="MdInputTxt01" modelmodifiers="[object Object]"><label data-v-e2e9ced4="" class="mdInputTxt01Label">パスワード</label><input data-v-e2e9ced4="" type="password" name="tpasswd" placeholder="パスワード" value=""></div><!----><div data-v-d86301bb="" class="mdFormGroup01Btn"><button data-v-d86301bb="" type="submit" class="MdBtn01 ExDisabled" disabled="">ログイン</button></div><div data-v-d86301bb="" class="MdFormError01 MdHide"><p data-v-d86301bb="" class="mdFormErrorTxt01"></p></div></fieldset></form><div data-v-d86301bb="" class="MdMN04QrLogin"><h3 data-v-d86301bb="" class="MdTtl01"><span data-v-d86301bb="" class="mdTtl01Inner">または他の方法でログイン</span></h3><a data-v-d86301bb="" href="https://access.line.me/oauth2/v2.1/login?returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fapp_id%3D2010241485-MAmbKmB7%26client_id%3D2010241485%26scope%3Dopenid%2520profile%26state%3DiJMhufRPtrsw%26response_type%3Dcode%26code_challenge_method%3DS256%26code_challenge%3DiLnhA5xFJcj4tYR---C5CZ_NvnL75BAv4N7W_PMOSDo%26liff_sdk_version%3D2.29.0%26type%3DL%26redirect_uri%3Dhttps%253A%252F%252Fnoguchiosigoto-ops.github.io%252Ftomodachi-liff%252F%26bot_prompt%3Dnormal&amp;loginChannelId=2010241485&amp;loginState=MiVKJbQPl42kzw5XlZUYZq#/qr" class="MdBtn02"><span data-v-d86301bb="">QRコードログイン</span></a></div><div data-v-d86301bb="" class="MdMN03Etc"><h3 data-v-d86301bb="" class="MdTtl01"><span data-v-d86301bb="" class="mdTtl01Inner">ログイン出来ない場合</span></h3><!----><button data-v-d86301bb="" type="button" class="mdMN03EtcLink01">メールアドレス・パスワードの確認はこちら</button><!----></div></div><ldsg-bottom-sheet data-v-d86301bb=""><template shadowrootmode="open"><!---->
-      <slot name="invoker"></slot>
-      <div id="overlay-content-node-wrapper">
-        <slot name="backdrop"></slot>
-        <slot name="content"></slot>
-      </div>
-    </template></ldsg-bottom-sheet><!----></div><footer data-v-ca9e6b00="" class="LyFoot"><div class="lyFootInner"><div class="MdGFT01Copy"><small>©&nbsp;<b>LY Corporation</b></small></div><h5 class="MdHide">LINEヤフー株式会社のリンク</h5><div class="MdGFT02Link"><ul class="mdGFT02Ul link-list"><!----><li><a href="https://terms.line.me/line_rules/?lang=ja" target="_blank" rel="noopener">プライバシーポリシー</a></li><li><a href="https://terms.line.me/line_terms/?lang=ja" target="_blank" rel="noopener">利用規約</a></li></ul></div></div></footer></div></div></div></div>
-
-  <script src="./index_files/lc_common.js.ダウンロード"></script>
+<div class="mode-buttons">
+  <button id="reserveModeBtn" class="active" type="button" onclick="switchMode('reserve')">予約する</button>
+  <button id="confirmModeBtn" type="button" onclick="switchMode('confirm')">予約確認</button>
+  <button id="changeModeBtn" type="button" onclick="switchMode('change')">変更する</button>
+  <button id="cancelModeBtn" type="button" onclick="switchMode('cancel')">キャンセル</button>
 </div>
 
+<section id="reserveForm" class="form-section active">
+  <label>予約日時 <span class="required-mark">※必須</span></label>
+  <p class="field-help">日付と時間を選択してください。15分刻みで選択できます。</p>
+  <div class="datetime-row">
+    <div class="field-block">
+      <label for="dateOnly">日付 <span class="required-mark">※必須</span></label>
+      <input id="dateOnly" type="date" aria-label="日付を選択してください" required>
+    </div>
+    <div class="field-block">
+      <label for="timeOnly">時間 <span class="required-mark">※必須</span></label>
+      <select id="timeOnly" required>
+        <option value="">時間を選択してください</option>
+      </select>
+    </div>
+  </div>
+  <input id="datetime" type="hidden" required>
+  <p class="note">予約可能時間：営業時間内、最終受付は閉店1時間前まで。</p>
+
+  <label>担当者 <span class="required-mark">※必須</span></label>
+  <p class="field-help">ご希望の担当者を選択してください。</p>
+  <select id="staff" required>
+    <option value="">担当者を選択してください</option>
+    <option value="田中">田中</option>
+    <option value="今野">今野</option>
+    <option value="吉田">吉田</option>
+    <option value="後藤">後藤</option>
+    <option value="井上">井上</option>
+    <option value="鈴木">鈴木</option>
+    <option value="中嶋">中嶋</option>
+    <option value="秋山">秋山</option>
+    <option value="下北">下北</option>
+    <option value="手島">手島</option>
+    <option value="誰でもいい">誰でもいい</option>
+  </select>
+
+  <label>人数 <span class="required-mark">※必須</span></label>
+  <select id="people" required>
+    <option value="">人数を選択してください</option>
+    <option value="1">1名</option>
+    <option value="2">2名</option>
+    <option value="3">3名</option>
+    <option value="4">4名</option>
+  </select>
+
+  <label>電話番号 <span class="required-mark">※必須</span></label>
+  <input id="phone" type="tel" inputmode="numeric" placeholder="例：09012345678" required>
+  <p class="field-help">予約確認のために使用します。ハイフンなしで入力してください。</p>
+
+  <label>備考</label>
+  <textarea id="memo" placeholder="ご要望があればご記入ください"></textarea>
+
+  <button id="submitBtn" type="button" onclick="sendReserve()">予約する</button>
+</section>
+
+<section id="changeForm" class="form-section">
+  <label>変更する予約 <span class="required-mark">※必須</span></label>
+  <select id="changeReservationSelect" required>
+    <option value="">予約を選択してください</option>
+  </select>
+
+  <label>新しい予約日時 <span class="required-mark">※必須</span></label>
+  <p class="field-help">変更後の日付と時間を選択してください。</p>
+  <div class="datetime-row">
+    <div class="field-block">
+      <label for="newDateOnly">日付 <span class="required-mark">※必須</span></label>
+      <input id="newDateOnly" type="date" aria-label="日付を選択してください" required>
+    </div>
+    <div class="field-block">
+      <label for="newTimeOnly">時間 <span class="required-mark">※必須</span></label>
+      <select id="newTimeOnly" required>
+        <option value="">時間を選択してください</option>
+      </select>
+    </div>
+  </div>
+  <input id="newDatetime" type="hidden">
+  <p class="note">予約可能時間：営業時間内、最終受付は閉店1時間前まで。15分刻みで選択できます。</p>
+
+  <label>新しい人数 <span class="required-mark">※必須</span></label>
+  <select id="newPeople">
+    <option value="">人数を選択してください</option>
+    <option value="1">1名</option>
+    <option value="2">2名</option>
+    <option value="3">3名</option>
+    <option value="4">4名</option>
+  </select>
+
+  <button id="changeSubmitBtn" class="sub-button" type="button" onclick="sendChange()">変更する</button>
+</section>
+
+
+<section id="confirmForm" class="form-section">
+  <p class="note">現在の予約を確認できます。</p>
+  <button id="confirmBtn" type="button" onclick="refreshAndShowReservations()">予約を確認する</button>
+  <div id="reservationList" class="note"></div>
+</section>
+
+<section id="cancelForm" class="form-section">
+  <label>キャンセルする予約 <span class="required-mark">※必須</span></label>
+  <select id="cancelReservationSelect" required>
+    <option value="">予約を選択してください</option>
+  </select>
+
+  <p class="note">
+    予約完了時に取得した予約ID（Calendar Event ID）でキャンセルします。
+  </p>
+
+  <button id="cancelBtn" class="sub-button" type="button" onclick="sendCancel()">キャンセルする</button>
+</section>
+
+<div id="result"></div>
+
 <script>
-  var lap_optout_check_api_url = "https://optout-api.tr.line.me/enabled";
+const WEBHOOK_URL = "https://hook.us2.make.com/sr4f38llkl01wbmstxi3q734upd2ar2j";
+const CANCEL_ENABLED = true;
+
+// 予約受付ルール
+// 営業時間を変更する場合は、この2行だけ変更する。
+const BUSINESS_START_TIME = "10:00";
+const BUSINESS_END_TIME = "22:00";
+const LAST_RESERVATION_BEFORE_CLOSE_MINUTES = 60;
+const RESERVATION_INTERVAL_MINUTES = 15;
+
+
+
+function getCreatedAtJST(){
+  const now=new Date();
+  const y=now.getFullYear();
+  const m=String(now.getMonth()+1).padStart(2,'0');
+  const d=String(now.getDate()).padStart(2,'0');
+  const h=String(now.getHours()).padStart(2,'0');
+  const mi=String(now.getMinutes()).padStart(2,'0');
+  const s=String(now.getSeconds()).padStart(2,'0');
+  return `${y}-${m}-${d} ${h}:${mi}:${s}`;
+}
+
+function getTodayDateText(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function parseLocalDatetime(datetimeValue){
+  if(!datetimeValue || !datetimeValue.includes("T")){
+    return null;
+  }
+
+  const [datePart, timePart] = datetimeValue.split("T");
+  const datePieces = datePart.split("-").map(Number);
+  const timePieces = timePart.split(":").map(Number);
+
+  if(datePieces.length < 3 || timePieces.length < 2){
+    return null;
+  }
+
+  const [year, month, day] = datePieces;
+  const [hour, minute] = timePieces;
+
+  if([year, month, day, hour, minute].some(value => Number.isNaN(value))){
+    return null;
+  }
+
+  return new Date(year, month - 1, day, hour, minute, 0, 0);
+}
+
+function minutesToTimeText(totalMinutes){
+  const hour = String(Math.floor(totalMinutes / 60)).padStart(2, "0");
+  const minute = String(totalMinutes % 60).padStart(2, "0");
+  return `${hour}:${minute}`;
+}
+bash
+
+sed -n '334,666p' /home/claude/tomodachi/index.html
+出力
+
+
+  const startMinutes = timeToMinutes(BUSINESS_START_TIME);
+  const lastMinutes = timeToMinutes(BUSINESS_END_TIME) - LAST_RESERVATION_BEFORE_CLOSE_MINUTES;
+
+  select.innerHTML = '<option value="">時間を選択してください</option>';
+
+  for(let minutes = startMinutes; minutes <= lastMinutes; minutes += RESERVATION_INTERVAL_MINUTES){
+    const value = minutesToTimeText(minutes);
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  }
+}
+
+function syncDatetimeFields(type){
+  const dateId = type === "change" ? "newDateOnly" : "dateOnly";
+  const timeId = type === "change" ? "newTimeOnly" : "timeOnly";
+  const hiddenId = type === "change" ? "newDatetime" : "datetime";
+
+  const dateValue = document.getElementById(dateId).value;
+  const timeValue = document.getElementById(timeId).value;
+  const hidden = document.getElementById(hiddenId);
+
+  hidden.value = (dateValue && timeValue) ? `${dateValue}T${timeValue}` : "";
+}
+
+function clearDatetimeFields(type){
+  const dateId = type === "change" ? "newDateOnly" : "dateOnly";
+  const timeId = type === "change" ? "newTimeOnly" : "timeOnly";
+  const hiddenId = type === "change" ? "newDatetime" : "datetime";
+
+  document.getElementById(dateId).value = "";
+  document.getElementById(timeId).value = "";
+  document.getElementById(hiddenId).value = "";
+}
+
+function setupDatetimeControls(){
+  populateTimeSelect("timeOnly");
+  populateTimeSelect("newTimeOnly");
+
+  const today = getTodayDateText();
+  ["dateOnly", "newDateOnly"].forEach(id => {
+    const element = document.getElementById(id);
+    if(element){ element.min = today; }
+  });
+
+  ["dateOnly", "timeOnly"].forEach(id => {
+    const element = document.getElementById(id);
+    if(element){ element.addEventListener("change", () => syncDatetimeFields("reserve")); }
+  });
+
+  ["newDateOnly", "newTimeOnly"].forEach(id => {
+    const element = document.getElementById(id);
+    if(element){ element.addEventListener("change", () => syncDatetimeFields("change")); }
+  });
+}
+
+let lineUserId = "";
+let lineDisplayName = "";
+
+function normalizeReservationDatetime(value){
+  return value ? String(value).replace("T", " ") : "";
+}
+
+function getReservationField(item, index, columnLetter, fallbackKeys = []){
+  if(!item){ return ""; }
+
+  const keys = [
+    String(index),
+    index,
+    columnLetter,
+    String(columnLetter).toLowerCase(),
+    ...fallbackKeys
+  ];
+
+  for(const key of keys){
+    if(Object.prototype.hasOwnProperty.call(item, key) && item[key] !== undefined && item[key] !== null && String(item[key]).trim() !== ""){
+      return String(item[key]).trim();
+    }
+  }
+
+  if(Array.isArray(item.values) && item.values[index] !== undefined && item.values[index] !== null && String(item.values[index]).trim() !== ""){
+    return String(item.values[index]).trim();
+  }
+
+  return "";
+}
+
+function parseReservationDatetimeText(value){
+  if(!value){ return null; }
+
+  const normalized = String(value).trim().replace("T", " ");
+  const match = normalized.match(/^(\d{4})-(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{2})/);
+  if(!match){ return null; }
+
+  const [, year, month, day, hour, minute] = match.map(Number);
+  return new Date(year, month - 1, day, hour, minute, 0, 0);
+}
+
+function isFutureReservation(datetimeText){
+  const reservationDate = parseReservationDatetimeText(datetimeText);
+  if(!reservationDate){ return false; }
+
+  return reservationDate.getTime() >= new Date().getTime();
+}
+
+function timeToMinutes(timeText){
+  const parts = String(timeText).split(":").map(Number);
+  return (parts[0] * 60) + parts[1];
+}
+
+function getDatetimeMinutes(datetimeValue){
+  if(!datetimeValue || !datetimeValue.includes("T")){
+    return null;
+  }
+
+  const timePart = datetimeValue.split("T")[1] || "";
+  const parts = timePart.split(":").map(Number);
+
+  if(parts.length < 2 || Number.isNaN(parts[0]) || Number.isNaN(parts[1])){
+    return null;
+  }
+
+  return (parts[0] * 60) + parts[1];
+}
+
+function validateReservableDatetime(datetimeValue){
+  const selectedMinutes = getDatetimeMinutes(datetimeValue);
+
+  if(selectedMinutes === null){
+    return { valid: false, message: "予約日時を正しく入力してください。" };
+  }
+
+  const selectedDatetime = parseLocalDatetime(datetimeValue);
+  if(!selectedDatetime){
+    return { valid: false, message: "予約日時を正しく入力してください。" };
+  }
+
+  const now = new Date();
+  if(selectedDatetime.getTime() < now.getTime()){
+    return { valid: false, message: "過去の日時は予約できません。現在時刻以降の日時を選択してください。" };
+  }
+
+  const startMinutes = timeToMinutes(BUSINESS_START_TIME);
+  const lastMinutes = timeToMinutes(BUSINESS_END_TIME) - LAST_RESERVATION_BEFORE_CLOSE_MINUTES;
+
+  if(selectedMinutes < startMinutes || selectedMinutes > lastMinutes){
+    return {
+      valid: false,
+      message: `予約可能時間は${BUSINESS_START_TIME}〜${String(Math.floor(lastMinutes / 60)).padStart(2, "0")}:${String(lastMinutes % 60).padStart(2, "0")}です。`
+    };
+  }
+
+  if(selectedMinutes % RESERVATION_INTERVAL_MINUTES !== 0){
+    return {
+      valid: false,
+      message: `予約時間は${RESERVATION_INTERVAL_MINUTES}分刻みで選択してください。`
+    };
+  }
+
+  return { valid: true, message: "" };
+}
+
+async function fetchReservationsAndRefresh(){
+  try{
+    const response = await fetch(WEBHOOK_URL + "?action=getReservations");
+
+    if(!response.ok){
+      throw new Error("getReservations failed: " + response.status);
+    }
+
+    const data = await response.json();
+
+    const storedReservations = getStoredReservations();
+
+    const reservations = (data.reservations || []).map(item => {
+      const rawDatetime = normalizeReservationDatetime(getReservationField(item, 0, "A", ["datetime", "date", "予約日時"]));
+      const peopleFromSheet = getReservationField(item, 1, "B", ["people", "numberOfPeople", "人数"]);
+      const nameOrUserId = getReservationField(item, 2, "C", ["name", "lineDisplayName", "名前"]);
+      const eventId = getReservationField(item, 5, "F", ["eventId", "calendarEventId", "EventID"]);
+      const userId = getReservationField(item, 6, "G", ["lineUserId", "userId", "LINE UserID"]);
+      const storedMatch = storedReservations.find(stored => stored.eventId === eventId) || {};
+      const displayName = nameOrUserId === lineUserId ? lineDisplayName : nameOrUserId;
+
+      return {
+        eventId: eventId,
+        datetime: rawDatetime,
+        rawDatetime: rawDatetime,
+        people: peopleFromSheet || storedMatch.people || "",
+        name: displayName || storedMatch.name || storedMatch.lineDisplayName || "",
+        lineDisplayName: displayName || storedMatch.lineDisplayName || "",
+        lineUserId: userId || storedMatch.lineUserId || ""
+      };
+    }).filter(item => {
+      if(!item.eventId || !item.datetime){
+        return false;
+      }
+
+      if(!isFutureReservation(item.datetime)){
+        return false;
+      }
+
+      return (
+        item.lineUserId === lineUserId ||
+        item.name === lineDisplayName ||
+        item.lineDisplayName === lineDisplayName
+      );
+    });
+
+    saveStoredReservations(reservations);
+    renderReservationSelects();
+    renderReservationList();
+
+  }catch(error){
+    console.error("予約一覧取得エラー", error);
+    renderReservationSelects();
+  }
+}
+
+
+
+function applyInitialMode(){
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get("mode");
+  if(mode === "change" || mode === "cancel" || mode === "reserve" || mode === "confirm"){
+    switchMode(mode);
+  }
+}
+
+async function initLiff(){
+  try{
+    await liff.init({ liffId: "2010241485-MAmbKmB7" });
+
+    if(!liff.isLoggedIn()){
+      liff.login();
+      return;
+    }
+
+    const profile = await liff.getProfile();
+    lineUserId = profile.userId;
+    lineDisplayName = profile.displayName;
+
+    await fetchReservationsAndRefresh();
+
+  }catch(error){
+    console.error("LIFF初期化エラー", error);
+  }
+}
+
+function switchMode(mode){
+  const forms = {
+    reserve: document.getElementById("reserveForm"),
+    confirm: document.getElementById("confirmForm"),
+    change: document.getElementById("changeForm"),
+    cancel: document.getElementById("cancelForm")
+  };
+
+  const buttons = {
+    reserve: document.getElementById("reserveModeBtn"),
+    confirm: document.getElementById("confirmModeBtn"),
+    change: document.getElementById("changeModeBtn"),
+    cancel: document.getElementById("cancelModeBtn")
+  };
+
+  Object.keys(forms).forEach(key => {
+    if(forms[key]){ forms[key].classList.toggle("active", key === mode); }
+    if(buttons[key]){ buttons[key].classList.toggle("active", key === mode); }
+  });
+
+  if(mode === "confirm"){
+    renderReservationList();
+  }
+
+  document.getElementById("result").style.display = "none";
+  renderReservationSelects();
+}
+
+function showResult(type, message){
+  const result = document.getElementById("result");
+  result.className = type;
+  result.textContent = message;
+  result.style.display = "block";
+}
+
+
+function formatDatetimeForMake(value){
+  return value ? value.replace("T", " ") : "";
+}
+
+function getStoredReservations(){
+  try{
+    return JSON.parse(localStorage.getItem("tomodachiReservations") || "[]");
+  }catch(error){
+    return [];
+  }
+}
+
+function sortReservationsByDatetime(reservations){
+  return [...reservations].sort((a, b) => {
+    const dateA = parseReservationDatetimeText(a.datetime || a.rawDatetime || "");
+    const dateB = parseReservationDatetimeText(b.datetime || b.rawDatetime || "");
+
+    if(!dateA && !dateB){ return 0; }
+    if(!dateA){ return 1; }
+    if(!dateB){ return -1; }
+
+    return dateA.getTime() - dateB.getTime();
+  });
+}
+
+function saveStoredReservations(reservations){
+  localStorage.setItem("tomodachiReservations", JSON.stringify(sortReservationsByDatetime(reservations)));
+}
+
+function getEventIdFromResponse(responseData){
+  return responseData.eventId
+    || responseData.eventID
+    || responseData.calendarEventId
+    || responseData.calendarEventID
+    || responseData.event_id
+    || responseData["Calendar Event ID"]
+    || "";
+}
+
+function rememberReservation(reservation){
+  if(!reservation.eventId){
+    return;
+  }
+
+  const reservations = getStoredReservations();
+  const filtered = reservations.filter(item => item.eventId !== reservation.eventId);
+  filtered.unshift(reservation);
+function populateTimeSelect(selectId){
+  const select = document.getElementById(selectId);
+  if(!select){ return; }
+bash
+
+sed -n '667,1020p' /home/claude/tomodachi/index.html
+出力
+
+  saveStoredReservations(filtered.slice(0, 20));
+  renderReservationSelects();
+  renderReservationList();
+}
+
+function removeStoredReservation(eventId){
+  const reservations = getStoredReservations().filter(item => item.eventId !== eventId);
+  saveStoredReservations(reservations);
+  renderReservationSelects();
+  renderReservationList();
+}
+
+function updateStoredReservation(eventId, data){
+  const reservations = getStoredReservations().map(item => {
+    if(item.eventId !== eventId){
+      return item;
+    }
+
+    return {
+      ...item,
+      datetime: data.datetime,
+      rawDatetime: data.rawDatetime,
+      people: data.people
+    };
+  });
+
+  saveStoredReservations(reservations);
+  renderReservationSelects();
+  renderReservationList();
+}
+
+function renderReservationSelects(){
+  const reservations = sortReservationsByDatetime(getStoredReservations());
+
+  const cancelSelect = document.getElementById("cancelReservationSelect");
+  const changeSelect = document.getElementById("changeReservationSelect");
+
+  [cancelSelect, changeSelect].forEach(select => {
+    if(!select){
+      return;
+    }
+
+    const oldValue = select.value;
+    select.innerHTML = '<option value="">予約を選択してください</option>';
+
+    reservations.forEach(item => {
+      const option = document.createElement("option");
+      option.value = item.eventId;
+      option.textContent = `${item.datetime || ""} / ${item.people || ""}名 / ${item.name || ""}`;
+      option.dataset.datetime = item.datetime || "";
+      option.dataset.people = item.people || "";
+      select.appendChild(option);
+    });
+
+    if(oldValue){
+      select.value = oldValue;
+    }
+  });
+}
+
+function renderReservationList(){
+  const list = document.getElementById("reservationList");
+  if(!list){ return; }
+
+  const reservations = sortReservationsByDatetime(getStoredReservations());
+  if(reservations.length === 0){
+    list.innerHTML = "現在確認できる予約はありません。";
+    return;
+  }
+
+  list.innerHTML = reservations.map(item => {
+    const datetime = item.datetime || "日時未取得";
+    const people = item.people ? `${item.people}名` : "人数未取得";
+    return `<div style="padding:12px 0;border-bottom:1px solid #eee;">
+      <strong>日時：</strong>${datetime}<br>
+      <strong>人数：</strong>${people}
+    </div>`;
+  }).join("");
+}
+
+async function refreshAndShowReservations(){
+  const button = document.getElementById("confirmBtn");
+  if(button){
+    button.disabled = true;
+    button.textContent = "確認中...";
+  }
+
+  await fetchReservationsAndRefresh();
+  renderReservationList();
+
+  if(button){
+    button.disabled = false;
+    button.textContent = "予約を確認する";
+  }
+}
+
+async function sendReserve(){
+  syncDatetimeFields("reserve");
+  const datetime = document.getElementById("datetime").value;
+  const staff = document.getElementById("staff").value;
+  const people = document.getElementById("people").value;
+  const phone = document.getElementById("phone").value.trim();
+  const memo = document.getElementById("memo").value;
+  const phoneRegex = /^(070|080|090)\d{8}$/;
+
+  if(datetime === ""){
+    alert("予約日時を入力してください");
+    return;
+  }
+
+  const datetimeValidation = validateReservableDatetime(datetime);
+  if(!datetimeValidation.valid){
+    alert(datetimeValidation.message);
+    return;
+  }
+
+  if(staff === ""){
+    alert("担当者を選択してください");
+    return;
+  }
+
+  if(people === ""){
+    alert("人数を入力してください");
+    return;
+  }
+
+  if(Number(people) < 1 || Number(people) > 30){
+    alert("人数は1〜30名で入力してください");
+    return;
+  }
+
+  if(phone === ""){
+    alert("電話番号を入力してください");
+    return;
+  }
+
+  if(!phoneRegex.test(phone)){
+    alert("電話番号はハイフンなしの11桁で入力してください。例：09012345678");
+    return;
+  }
+
+  const button = document.getElementById("submitBtn");
+  button.disabled = true;
+  button.textContent = "送信中...";
+  document.getElementById("result").style.display = "none";
+
+  const data = {
+    action: "reserve",
+    name: lineDisplayName,
+    datetime: formatDatetimeForMake(datetime),
+    staff: staff,
+    people: people,
+    phone: phone,
+    memo: memo,
+    lineUserId: lineUserId,
+    lineDisplayName: lineDisplayName,
+    createdAtJST: getCreatedAtJST()
+  };
+
+  try{
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+
+    const responseData = await response.json();
+
+    if(responseData.status === "success"){
+      showResult("success", responseData.message);
+
+      const eventId = getEventIdFromResponse(responseData);
+      rememberReservation({
+        eventId: eventId,
+        datetime: datetime.replace("T", " "),
+        rawDatetime: datetime,
+        people: people,
+        phone: phone,
+        memo: memo,
+        name: lineDisplayName,
+        lineUserId: lineUserId,
+        lineDisplayName: lineDisplayName
+      });
+
+      clearDatetimeFields("reserve");
+      document.getElementById("staff").value = "";
+      document.getElementById("people").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("memo").value = "";
+    }else{
+      showResult("error", responseData.message);
+    }
+
+  }catch(error){
+    console.error(error);
+    showResult("error", "送信に失敗しました。時間をおいて再度お試しください。");
+  }
+
+  button.disabled = false;
+  button.textContent = "予約する";
+}
+
+async function sendCancel(){
+  const select = document.getElementById("cancelReservationSelect");
+  const eventId = select.value;
+  const selectedOption = select.options[select.selectedIndex];
+  const datetime = selectedOption ? selectedOption.dataset.datetime : "";
+
+  if(eventId === ""){
+    alert("キャンセルする予約を選択してください");
+    return;
+  }
+
+  if(!CANCEL_ENABLED){
+    alert("キャンセル機能はMake側の設定後に有効化します");
+    return;
+  }
+
+  const button = document.getElementById("cancelBtn");
+  button.disabled = true;
+  button.textContent = "キャンセル処理中...";
+  document.getElementById("result").style.display = "none";
+
+  const data = {
+    action: "cancel",
+    cancelMethod: "eventId",
+    eventId: eventId,
+    datetime: formatDatetimeForMake(datetime),
+    lineUserId: lineUserId,
+    lineDisplayName: lineDisplayName,
+    createdAtJST: getCreatedAtJST()
+  };
+
+  try{
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+
+    if(!response.ok){
+      throw new Error("Webhook request failed: " + response.status);
+    }
+
+    const responseData = await response.json();
+
+    if(responseData.status === "success"){
+      showResult("success", responseData.message || "キャンセルを受け付けました。");
+      removeStoredReservation(eventId);
+    }else{
+      showResult("error", responseData.message || "キャンセルに失敗しました。");
+    }
+
+  }catch(error){
+    console.error(error);
+    showResult("error", "送信に失敗しました。時間をおいて再度お試しください。");
+  }
+
+  button.disabled = false;
+  button.textContent = "キャンセルする";
+}
+
+async function sendChange(){
+  syncDatetimeFields("change");
+  const select = document.getElementById("changeReservationSelect");
+  const eventId = select.value;
+  const newDatetime = document.getElementById("newDatetime").value;
+  const newPeople = document.getElementById("newPeople").value;
+
+  if(eventId === ""){
+    alert("変更する予約を選択してください。");
+    return;
+  }
+
+  if(newDatetime === ""){
+    alert("新しい予約日時を入力してください。");
+    return;
+  }
+
+  const newDatetimeValidation = validateReservableDatetime(newDatetime);
+  if(!newDatetimeValidation.valid){
+    alert(newDatetimeValidation.message);
+    return;
+  }
+
+  if(newPeople === ""){
+    alert("新しい人数を入力してください。");
+    return;
+  }
+
+  if(Number(newPeople) < 1 || Number(newPeople) > 30){
+    alert("人数は1〜30名で入力してください");
+    return;
+  }
+
+  const button = document.getElementById("changeSubmitBtn");
+  button.disabled = true;
+  button.textContent = "変更処理中...";
+  document.getElementById("result").style.display = "none";
+
+  const data = {
+    action: "change",
+    eventId: eventId,
+    newDatetime: formatDatetimeForMake(newDatetime),
+    newPeople: String(newPeople),
+    people: String(newPeople),
+    lineUserId: lineUserId,
+    lineDisplayName: lineDisplayName,
+    createdAtJST: getCreatedAtJST()
+  };
+
+  try{
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+
+    if(!response.ok){
+      throw new Error("Webhook request failed: " + response.status);
+    }
+
+    const responseData = await response.json();
+
+    if(responseData.status === "success"){
+      updateStoredReservation(eventId, {
+        datetime: formatDatetimeForMake(newDatetime),
+        rawDatetime: newDatetime,
+        people: String(newPeople)
+      });
+
+      showResult("success", responseData.message || "変更を受け付けました。");
+      clearDatetimeFields("change");
+      document.getElementById("newPeople").value = "";
+    }else{
+      showResult("error", responseData.message || "変更に失敗しました。");
+    }
+
+  }catch(error){
+    console.error(error);
+    showResult("error", "変更送信に失敗しました。");
+  }
+
+  button.disabled = false;
+  button.textContent = "変更する";
+}
+
+setupDatetimeControls();
+applyInitialMode();
+initLiff();
 </script>
 
-<script src="./index_files/lap_optout_check.min.js.ダウンロード"></script>
-
-
-
-
-
-<div class="global-overlays"><ldsg-backdrop data-tag-name="ldsg-backdrop" slot="backdrop"><template shadowrootmode="open"><!----></template></ldsg-backdrop><div style="display: none;"><ldsg-bottom-sheet-content data-v-d86301bb="" slot="content" action-layout="vertical" has-close-button="" has-title="" has-description="" has-avatar="" has-action="" has-avatar-on-top="" image-ratio="4x3" font-size="L" close-button-theme="light" image-position="top" additional-item-position="bottom" content-type="default" id="overlay-content--7s6l6pzdbk" role="dialog"><template shadowrootmode="open"><!---->
-      <div class="content">
-        <div class="handlebar"></div>
-        <div class="header"></div>
-
-        <!--?lit$241634155$-->
-      <div class="content-group-one">
-        <slot name="content-group-one">
-          <div class="image">
-            <slot name="image"></slot>
-          </div>
-          <div class="title">
-            <slot name="title"></slot>
-          </div>
-          <div class="description">
-            <slot name="description"></slot>
-          </div>
-        </slot>
-        <div class="content-group-one__bottom"></div>
-      </div>
-     <!--?lit$241634155$-->
-      <div class="content-group-two">
-        <slot name="content-group-two">
-          <div class="additional-item">
-            <slot name="additional-item"></slot>
-          </div>
-          <div class="action">
-            <slot name="action"></slot>
-          </div>
-        </slot>
-      </div>
-    
-
-        <div class="home-indicator"></div>
-
-        <!--?lit$241634155$-->
-          <button type="button" class="close-button" aria-label="Close overlay content">
-            <!--?lit$241634155$-->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-    <g transform="translate(-2 -2)">
-      <path d="M17.8418 5.239l.9192.9192L12.919 12l5.842 5.8418-.9192.9192L12 12.919l-5.8418 5.842-.9192-.9192L11.08 12 5.239 6.1582l.9192-.9192L12 11.08l5.8418-5.841z"></path>
-    </g>
-  </svg>
-
-          </button>
-        
-      </div>
-    </template><ldsg-avatar data-v-d86301bb="" slot="title" size="XL"><template shadowrootmode="open"><!----> <span class="avatar"> <!--?lit$241634155$--><!--?lit$241634155$--><img class="content content--image" src="data:image/png;base64,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" alt="LINE logo"><!--?--> <!--?lit$241634155$--><slot></slot> </span> </template></ldsg-avatar><p data-v-d86301bb="" slot="description" class="mdFormTxt01">LINEアプリが開かない場合は、[LINEアプリでログイン]を長押しして[LINEで開く]を選択し、もう一度ログインをお試しください。</p><a data-v-a5ac1047="" data-v-d86301bb="" type="submit" class="ldsm-box-button ldsm-box-button--solid ldsm-box-button--green ldsm-box-button--xl l-box-btn-a" href="https://access-auto.line.me/oauth2/v2.1/login?returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fapp_id%3D2010241485-MAmbKmB7%26client_id%3D2010241485%26scope%3Dopenid%2520profile%26state%3DiJMhufRPtrsw%26response_type%3Dcode%26code_challenge_method%3DS256%26code_challenge%3DiLnhA5xFJcj4tYR---C5CZ_NvnL75BAv4N7W_PMOSDo%26liff_sdk_version%3D2.29.0%26type%3DL%26redirect_uri%3Dhttps%253A%252F%252Fnoguchiosigoto-ops.github.io%252Ftomodachi-liff%252F%26bot_prompt%3Dnormal&amp;loginChannelId=2010241485&amp;loginState=MiVKJbQPl42kzw5XlZUYZq" slot="action"><span data-v-a5ac1047="" class="ldsm-box-button__text">LINEアプリでログイン</span></a><button data-v-ad958ae9="" data-v-d86301bb="" class="ldsm-text-button ldsm-text-button--gray ldsm-text-button--md l-txt-btn" slot="action" style="--20e1a779: 400;"><span data-v-ad958ae9="" class="ldsm-text-button_text">メールアドレスでログインする</span></button></ldsg-bottom-sheet-content></div></div></body></html>
+</body>
+</html>
